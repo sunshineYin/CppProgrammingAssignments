@@ -1,0 +1,6 @@
+#created in c compiling
+*.o
+*.win
+*.dev
+*.exe
+*.layout
