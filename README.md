@@ -1,2 +1,2 @@
 # homework
-some homework project.
+some homework projects.
