@@ -1,0 +1,5 @@
+#created in c++ compiling
+*.o
+*.dev
+*.exe
+*.win

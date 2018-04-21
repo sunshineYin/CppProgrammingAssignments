@@ -1,0 +1,7 @@
+#created in c++ compiling
+*.o
+*.dev
+*.layout
+
+#compressed file
+*.zip
