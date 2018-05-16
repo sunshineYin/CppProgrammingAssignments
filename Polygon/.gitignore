@@ -1,0 +1,12 @@
+#Created in c++ compiling
+*.o
+*.win
+*.exe
+*.dev
+*.layout
+
+#Compressed file
+*.zip
+
+#Excess file
+single.cpp
