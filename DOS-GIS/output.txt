@@ -1,0 +1,6 @@
+False
+point a1 [2,0], name=北京
+point a2 [5,6], name=NULL
+polyline a1 [[7,8],[9,10]], name=NULL, length=1000米
+ring a1 [[6,0],[7,8],[9,10],[6,0]], name=NULL, length=1000米, area=1000平方米
+polygon a1 outer=[[0,2],[2,2],[2,0],[0,0],[0,2]], inner=[[0,1],[1,1],[1,0],[0,0],[0,1]], name=NULL, length=1000米, area=1000平方米
