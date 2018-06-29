@@ -1,0 +1,9 @@
+# Created in c compiling
+/src/*.o
+/src/*.win
+/src/*.exe
+/src/*.dev
+/src/*.layout
+
+# Compressed file
+*.zip
