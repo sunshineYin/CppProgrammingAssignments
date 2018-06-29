@@ -18,22 +18,19 @@ using namespace std;
 
 // should not be regarded as global variables.
    
-const int TEST_MAX_NUM = 100;//Ô¤¶¨Òå²âÊÔÊý¾ÝµÄ×éÊý£¬·½±ãÈÕºóÐÞ¸Ä¡£  
-//string weaponName[3] = { "sword","bomb","arrow" };  
-//´æ·Å²âÊÔÊý¾Ý  
-//int iniElem_Wr[testdata][num] = { 0 }, iniForce_Wr[testdata][num] = { 0 };   
-//bool stop = 0;//ÊÇ·ñÓÐÕóÓª±»Õ¼Áì  
+const int TEST_MAX_NUM = 100;//Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õºï¿½ï¿½Þ¸Ä¡ï¿½  
+
 
 
 int main()  
 {  
     int test;  
     cin >> test;  
-    bool stop;//ÊÇ·ñÓÐÕóÓª±»Õ¼Áì
+    bool stop;//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½Õ¼ï¿½ï¿½
     int iniElem_Wr[TEST_MAX_NUM][WR_TYPE_NUM] = { 0 }, iniForce_Wr[TEST_MAX_NUM][WR_TYPE_NUM] = { 0 };   
     //int M[testdata] = { 0 }, N[testdata] = { 0 }, T[testdata] = { 0 };
     int M[TEST_MAX_NUM] = { 0 }, N[TEST_MAX_NUM] = { 0 }, T[TEST_MAX_NUM] = { 0 };  
-	for (int i = 0; i < test; i++)//ÊäÈëËùÓÐ²âÊÔÊý¾Ý  
+	for (int i = 0; i < test; i++)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     {  
         cin >> M[i] >> N[i] >> T[i];
 		//fscanf(pFile,"%d %d %d", &M[i], &N[i], &T[i]);
@@ -49,7 +46,7 @@ int main()
     
     system("cls");
     
-    for (int i = 0; i < test; i++)//¿ªÊ¼ÓÎÏ·  
+    for (int i = 0; i < test; i++)//ï¿½ï¿½Ê¼ï¿½ï¿½Ï·  
     {  
         int time = 0;  
         Headquarter *headquater[2];  
@@ -66,11 +63,11 @@ int main()
 		
 		while (!stop)  
 		{  
-    		//ÖÆÔìÎäÊ¿  
+    		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿  
     		headquater[0]->produceWr(time, iniElem_Wr, iniForce_Wr);  
     		headquater[1]->produceWr(time, iniElem_Wr, iniForce_Wr);  
     		
-			time += 10; if (time > T[i]) break;//µÚ10·ÖÖÓ£¬Èç¹ûÖ¸Õë²»Îª¿Õ£¬ÄÇÃ´Ö¸ÕëÖ¸ÏòµÄÎäÊ¿Ç°½ø  
+			time += 10; if (time > T[i]) break;//ï¿½ï¿½10ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë²»Îªï¿½Õ£ï¿½ï¿½ï¿½Ã´Ö¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿Ç°ï¿½ï¿½  
     		for (int j = N[i]; j > 0; j--)  
         		if (city[j]->wr[0])  
             		city[j]->wr[0]->moveforward(city, N[i], headquater, time);  
@@ -87,18 +84,18 @@ int main()
         		headquater[1]->newBornWr->moveforward(city, N[i], headquater, time);  
         		headquater[1]->newBornWr = NULL;  
     		}  
-    		headquater[0]->printEnemyArrivedInfo(time, stop);//´òÓ¡ÎäÊ¿Ç°½øµÄÇé¿ö  
+    		headquater[0]->printEnemyArrivedInfo(time, stop);//ï¿½ï¿½Ó¡ï¿½ï¿½Ê¿Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     		for (int j = 1; j < N[i] + 1; j++)  
         		city[j]->printWarriorArrivedInfo(time);  
     		headquater[1]->printEnemyArrivedInfo(time, stop);
 			  
     		if (!stop)  
     		{  
-        		time += 10; if (time > T[i]) break;//µÚ20·ÖÖÓ£¬³ÇÊÐÔö¼Ó10¸öelement  
+        		time += 10; if (time > T[i]) break;//ï¿½ï¿½20ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½element  
         		for (int j = 1; j < N[i] + 1; j++)  
             		city[j]->elementPlus(); 
 					 
-        		time += 10; if (time > T[i]) break;//µÚ30·ÖÖÓ£¬Èç¹û³ÇÊÐÖ»ÓÐÒ»¸öÎäÊ¿£¬ÄÇÃ´ÎäÊ¿È¡×ßelement  
+        		time += 10; if (time > T[i]) break;//ï¿½ï¿½30ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ê¿È¡ï¿½ï¿½element  
         		for (int j = 1; j < N[i] + 1; j++)  
         		{  
             		if ((city[j]->wr[0] == NULL)&&(city[j]->wr[1] != NULL))  
@@ -106,7 +103,7 @@ int main()
             		if ((city[j]->wr[0] != NULL)&&(city[j]->wr[1] == NULL))  
                 		city[j]->transferElem(*headquater[0], time, 0);  
         		}  
-        		time += 10; if (time > T[i]) break;//µÚ40·ÖÖÓ£¬×ÔÎ÷Ïò¶«£¬Õ½¶·¿ªÊ¼  
+        		time += 10; if (time > T[i]) break;//ï¿½ï¿½40ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¶«£ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ê¼  
         		for (int j = 1; j < N[i] + 1; j++)  
         		{  
             		if (city[j]->num_warrior == 2)  
@@ -160,27 +157,27 @@ int main()
             		}  
         		}
 					  
-        		for (int j = 1; j < N[i] + 1; j++)//×ÔÎ÷Ïò¶«£¬À¶ÕóÓª½±Àø»ñÊ¤ÎäÊ¿  
+        		for (int j = 1; j < N[i] + 1; j++)//ï¿½ï¿½ï¿½ï¿½ï¿½ò¶«£ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½Ê¿  
         		{  
             		if (city[j]->winnerWr)  
                 		if (city[j]->winnerWr->color == 1)  
                     		city[j]->winnerWr->rewardElem(*headquater[1]);  
         		}  
-        		for (int j = N[i]; j > 0; j--)//×Ô¶«ÏòÎ÷£¬ºìÕóÓª½±Àø»ñÊ¤ÎäÊ¿  
+        		for (int j = N[i]; j > 0; j--)//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½Ê¿  
         		{  
             		if (city[j]->winnerWr)  
                 		if (city[j]->winnerWr->color == 0)  
                     		city[j]->winnerWr->rewardElem(*headquater[0]);  
         		}
 				  
-        		for (int j = 1; j < N[i] + 1; j++)//Ê¤Õß»ØÊÕ³ÇÊÐelement  
+        		for (int j = 1; j < N[i] + 1; j++)//Ê¤ï¿½ß»ï¿½ï¿½Õ³ï¿½ï¿½ï¿½element  
             		if (city[j]->winnerWr)  
             		{  
                 		headquater[city[j]->winnerWr->color]->element += city[j]->element;  
                 		city[j]->element = 0;  
             		}  
             		
-        		time += 10; if (time > T[i]) break;//µÚ50·ÖÖÓ£¬ÕóÓª±¨¸æelement  
+        		time += 10; if (time > T[i]) break;//ï¿½ï¿½50ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½element  
         		headquater[0]->printElemInfo(time);  
         		headquater[1]->printElemInfo(time);  
         	}  
