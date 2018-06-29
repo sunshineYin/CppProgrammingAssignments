@@ -1,3 +1,10 @@
+// File: main.cpp
+// Author: yinganmin6837@163(gmail).com(Ganmin Yin)
+// Date: 2018/06/29
+// Description:
+//    The entrance of the project.
+
+
 #include<iostream>  
 #include<iomanip>  
 #include<string>  
@@ -15,10 +22,8 @@
 
 using namespace std;  
 
-
-// should not be regarded as global variables.
    
-const int TEST_MAX_NUM = 100;//Ԥ����������ݵ������������պ��޸ġ�  
+const int TEST_MAX_NUM = 100; // the maximum number of tests.
 
 
 
@@ -26,11 +31,11 @@ int main()
 {  
     int test;  
     cin >> test;  
-    bool stop;//�Ƿ�����Ӫ��ռ��
+    bool stop; // to checkout whether one headquarter is taken.
     int iniElem_Wr[TEST_MAX_NUM][WR_TYPE_NUM] = { 0 }, iniForce_Wr[TEST_MAX_NUM][WR_TYPE_NUM] = { 0 };   
     //int M[testdata] = { 0 }, N[testdata] = { 0 }, T[testdata] = { 0 };
     int M[TEST_MAX_NUM] = { 0 }, N[TEST_MAX_NUM] = { 0 }, T[TEST_MAX_NUM] = { 0 };  
-	for (int i = 0; i < test; i++)//�������в�������  
+	for (int i = 0; i < test; i++) // input the test data. 
     {  
         cin >> M[i] >> N[i] >> T[i];
 		//fscanf(pFile,"%d %d %d", &M[i], &N[i], &T[i]);
@@ -46,8 +51,9 @@ int main()
     
     system("cls");
     
-    for (int i = 0; i < test; i++)//��ʼ��Ϸ  
-    {  
+    for (int i = 0; i < test; i++) // begin the game now.  
+    {
+		// initialization.  
         int time = 0;  
         Headquarter *headquater[2];  
         City*city[25] = {NULL};  
@@ -63,11 +69,12 @@ int main()
 		
 		while (!stop)  
 		{  
-    		//������ʿ  
+    		// time: 0 min, produce warriors.
     		headquater[0]->produceWr(time, iniElem_Wr, iniForce_Wr);  
     		headquater[1]->produceWr(time, iniElem_Wr, iniForce_Wr);  
     		
-			time += 10; if (time > T[i]) break;//��10���ӣ����ָ�벻Ϊ�գ���ôָ��ָ�����ʿǰ��  
+			// time: 10 mins, warriors move forward.
+			time += 10; if (time > T[i]) break;
     		for (int j = N[i]; j > 0; j--)  
         		if (city[j]->wr[0])  
             		city[j]->wr[0]->moveforward(city, N[i], headquater, time);  
@@ -84,18 +91,22 @@ int main()
         		headquater[1]->newBornWr->moveforward(city, N[i], headquater, time);  
         		headquater[1]->newBornWr = NULL;  
     		}  
-    		headquater[0]->printEnemyArrivedInfo(time, stop);//��ӡ��ʿǰ�������  
+			// print out the moving information of warriors.
+    		headquater[0]->printEnemyArrivedInfo(time, stop);
     		for (int j = 1; j < N[i] + 1; j++)  
         		city[j]->printWarriorArrivedInfo(time);  
     		headquater[1]->printEnemyArrivedInfo(time, stop);
-			  
+			
+			// if no headquarter was taken.  
     		if (!stop)  
     		{  
-        		time += 10; if (time > T[i]) break;//��20���ӣ���������10��element  
+				// time: 20 mins, each city produce 10 elements.
+        		time += 10; if (time > T[i]) break; 
         		for (int j = 1; j < N[i] + 1; j++)  
             		city[j]->elementPlus(); 
-					 
-        		time += 10; if (time > T[i]) break;//��30���ӣ��������ֻ��һ����ʿ����ô��ʿȡ��element  
+
+				// time: 30 mins, warriors take away the elements, if it is the only warrior in the city.	 
+        		time += 10; if (time > T[i]) break;
         		for (int j = 1; j < N[i] + 1; j++)  
         		{  
             		if ((city[j]->wr[0] == NULL)&&(city[j]->wr[1] != NULL))  
@@ -103,7 +114,9 @@ int main()
             		if ((city[j]->wr[0] != NULL)&&(city[j]->wr[1] == NULL))  
                 		city[j]->transferElem(*headquater[0], time, 0);  
         		}  
-        		time += 10; if (time > T[i]) break;//��40���ӣ������򶫣�ս����ʼ  
+
+				// time: 40 mins, fight begin.
+        		time += 10; if (time > T[i]) break;
         		for (int j = 1; j < N[i] + 1; j++)  
         		{  
             		if (city[j]->num_warrior == 2)  
@@ -122,15 +135,13 @@ int main()
                     		city[j]->wr[0] = NULL; city[j]->wr[1] = NULL;  
                 		}  
                 		else if ((city[j]->wr[0]->element > 0)&&(city[j]->wr[1]->element <= 0))  
-                		{  
-                    		//city[j]->wr[0]->getWeapon(*city[j]->wr[1]);  
+                		{    
                     		city[j]->wr[0]->win(*city[j], time);  
                     		city[j]->winnerWr = city[j]->wr[0];  
                     		city[j]->wr[1] = NULL; city[j]->num_warrior--;  
                 		}  
                 		else if ((city[j]->wr[0]->element <= 0)&&(city[j]->wr[1]->element>0))  
-                		{  
-                    		//city[j]->wr[1]->getWeapon(*city[j]->wr[0]);  
+                		{   
                     		city[j]->wr[1]->win(*city[j], time); 
 							city[j]->winnerWr = city[j]->wr[1];   
                     		city[j]->wr[0] = NULL; city[j]->num_warrior--;  
@@ -156,33 +167,35 @@ int main()
                 		}  
             		}  
         		}
-					  
-        		for (int j = 1; j < N[i] + 1; j++)//�����򶫣�����Ӫ������ʤ��ʿ  
+				// time: 40 mins, the red camp reward it's warriors from east to west. (east is near the blue camp) 	  
+        		for (int j = 1; j < N[i] + 1; j++) 
         		{  
             		if (city[j]->winnerWr)  
                 		if (city[j]->winnerWr->color == 1)  
                     		city[j]->winnerWr->rewardElem(*headquater[1]);  
         		}  
-        		for (int j = N[i]; j > 0; j--)//�Զ�����������Ӫ������ʤ��ʿ  
+				// time: 40 mins, the blue camp reward it's warriors from west to east. (west is near the red camp) 
+        		for (int j = N[i]; j > 0; j--) 
         		{  
             		if (city[j]->winnerWr)  
                 		if (city[j]->winnerWr->color == 0)  
                     		city[j]->winnerWr->rewardElem(*headquater[0]);  
         		}
-				  
-        		for (int j = 1; j < N[i] + 1; j++)//ʤ�߻��ճ���element  
+				// time: 40 mins, the winner takes away the elements of the city.  
+        		for (int j = 1; j < N[i] + 1; j++) 
             		if (city[j]->winnerWr)  
             		{  
                 		headquater[city[j]->winnerWr->color]->element += city[j]->element;  
                 		city[j]->element = 0;  
             		}  
-            		
-        		time += 10; if (time > T[i]) break;//��50���ӣ���Ӫ����element  
+            	// time: 50 mins, 2 headquarters report it's condition of elements.	
+        		time += 10; if (time > T[i]) break; 
         		headquater[0]->printElemInfo(time);  
         		headquater[1]->printElemInfo(time);  
         	}  
         	time += 10;  
-        }  
+        }
+		// game over.  
         delete headquater[0]; delete headquater[1];  
         for (int i = 0; i < 25; i++)  
             if (city[i])  
